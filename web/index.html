@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free OpenAI-Compatible API Starter</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>OpenAI-Compatible API Starter</h1>
+            <p class="subtitle">Test your API in under one minute</p>
+        </header>
+
+        <!-- Settings Section -->
+        <section class="settings-card">
+            <h2>API Settings</h2>
+            <div class="form-group">
+                <label for="api-key">API Key</label>
+                <input type="password" id="api-key" placeholder="Enter your API key">
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="base-url">Base URL</label>
+                    <input type="text" id="base-url" value="https://www.tken.shop/v1">
+                </div>
+                <div class="form-group">
+                    <label for="model">Model</label>
+                    <input type="text" id="model" value="gpt-4o-mini">
+                </div>
+            </div>
+            <div class="form-actions">
+                <button id="save-settings" class="btn btn-primary">Save Settings</button>
+                <button id="reset-settings" class="btn btn-secondary">Reset to Defaults</button>
+            </div>
+        </section>
+
+        <!-- Chat Section -->
+        <section class="chat-card">
+            <h2>Test Your API</h2>
+            <div id="chat-output" class="chat-output">
+                <div class="welcome-message">
+                    <p>Configure your API settings above, then send a test prompt.</p>
+                </div>
+            </div>
+            <div class="chat-input-area">
+                <textarea id="prompt-input" placeholder="Enter your prompt..." rows="3"></textarea>
+                <div class="chat-actions">
+                    <button id="send-btn" class="btn btn-primary">Send</button>
+                    <button id="clear-chat" class="btn btn-secondary">Clear Chat</button>
+                </div>
+            </div>
+            <div id="error-display" class="error-display hidden"></div>
+        </section>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

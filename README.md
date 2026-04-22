@@ -95,6 +95,8 @@ Use the example files in [`config/`](./config):
 - [`config/accounts.example.yaml`](./config/accounts.example.yaml)
 - [`config/proxies.example.yaml`](./config/proxies.example.yaml)
 - [`config/routing.example.yaml`](./config/routing.example.yaml)
+- [`config/presets/tken-kimi-free.yaml`](./config/presets/tken-kimi-free.yaml)
+- [`config/presets/tken-minimax-free.yaml`](./config/presets/tken-minimax-free.yaml)
 
 ### 3. Run the proxy
 
@@ -205,6 +207,10 @@ Please review the upstream project if you need the broader management platform i
 ## FAQ
 
 See [docs/faq.md](./docs/faq.md).
+
+## Presets
+
+See [docs/presets.md](./docs/presets.md) for preset config shortcuts.
 
 ## Star This Repo
 

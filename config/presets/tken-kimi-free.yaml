@@ -1,0 +1,11 @@
+accounts:
+  - name: tken-kimi-free
+    api_key: replace-with-your-tken-key
+    base_url: https://www.tken.shop/v1
+    models:
+      - kimi
+
+retry_policy:
+  max_attempts: 3
+  base_backoff_seconds: 0.5
+  cooldown_seconds: 20.0

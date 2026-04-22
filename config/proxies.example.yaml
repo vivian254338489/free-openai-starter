@@ -1,0 +1,9 @@
+proxies:
+  - name: cn-exit
+    url: http://127.0.0.1:7890
+    models:
+      - kimi
+      - minimax
+  - name: global-exit
+    url: http://127.0.0.1:8080
+

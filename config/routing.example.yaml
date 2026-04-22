@@ -1,0 +1,5 @@
+retry_policy:
+  max_attempts: 3
+  base_backoff_seconds: 0.5
+  cooldown_seconds: 20.0
+

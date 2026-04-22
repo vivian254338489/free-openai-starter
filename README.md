@@ -1,231 +1,168 @@
-# Free OpenAI-Compatible API Starter
+# OpenAI Unlimited Multi-Account Proxy API Manager
 
-A practical starter kit for testing OpenAI-compatible APIs. Get up and running in under one minute.
+Tired of `429` errors, API key bans, unstable upstreams, and juggling too many OpenAI-compatible endpoints?
 
-## Overview
+This project is a developer-first enhanced gateway inspired by [`QuantumNous/new-api`](https://github.com/QuantumNous/new-api). It focuses on the part many indie builders actually need first:
 
-This project helps developers test OpenAI-compatible APIs quickly using:
+- multi-account API key rotation
+- automatic retry on `429`
+- proxy support and cooldown
+- model-aware routing for OpenAI-compatible APIs
 
-- **Web demo**: Browser-based testing interface
-- **Python example**: Simple Python integration
-- **Node.js example**: Simple Node.js integration
+## Why This Exists
 
-## Core Features
+Modern AI apps often need more than one provider account, more than one region, and a safer way to fail over when one account gets rate limited.
 
-- Daily free API access
-- OpenAI-compatible format
-- Web, Python, and Node.js examples
-- No frameworks required
-- Easy local testing
+The original gateway platforms are powerful, but many solo developers and student builders want a smaller, easier-to-understand proxy layer they can self-host in minutes.
 
-## Why This Project
+This project narrows the problem down to one job:
 
-If you want to test an OpenAI-compatible API without building a full integration, this starter kit gives you a working example in under a minute.
+> route OpenAI-compatible requests through the best available account and proxy, without manual switching.
 
-Perfect for:
-- Quick API testing
-- Prototyping
-- Learning the API format
-- Trying a new provider
+## Features
 
-## Project Structure
+- Multi-account API key pool
+- Automatic account rotation
+- Auto retry on `429`
+- Proxy rotation with cooldown
+- Model-aware API routing
+- OpenAI-compatible `/v1/...` forwarding
+- FastAPI-based self-hosted runtime
 
-```
-free-openai-starter/
-├── README.md
-├── LICENSE
-├── .env.example
-├── web/
-│   ├── index.html
-│   ├── styles.css
-│   └── app.js
-├── python/
-│   ├── demo.py
-│   └── requirements.txt
-├── node/
-│   ├── demo.js
-│   └── package.json
-└── docs/
-    ├── quickstart.md
-    └── faq.md
-```
+## Compared With The Original Project
+
+This project is **inspired by** [`QuantumNous/new-api`](https://github.com/QuantumNous/new-api) and keeps clear credit to the upstream work.
+
+What is different here:
+
+- narrower developer-first scope
+- lighter deployment story
+- stronger emphasis on multi-account failover
+- stronger emphasis on proxy routing
+- easier `TKEN`-style quickstart examples for free model access
+
+If you want a full AI asset management platform, use the upstream project.  
+If you want a sharper OpenAI-compatible multi-account proxy manager, this repo is designed for that use case.
+
+## Demo / SaaS
+
+Recommended OpenAI-compatible endpoint for first-run testing:
+
+👉 [https://www.tken.shop/](https://www.tken.shop/)
+
+`TKEN` is used here as a natural quickstart option because:
+
+- it supports OpenAI-compatible API access
+- new users can register and directly call free `minimax` and `kimi` models
+- it fits the low-cost, developer-first workflow this project is built for
 
 ## Quick Start
 
-### 1. Get an API Key
-
-You need an API key from an OpenAI-compatible provider.
-
-Get one from: https://www.tken.shop
-
-### 2. Run the Web Demo
-
-Open `web/index.html` in your browser:
+### 1. Install dependencies
 
 ```bash
-# On macOS
-open web/index.html
-
-# On Linux
-xdg-open web/index.html
-
-# On Windows
-start web/index.html
+python -m pip install -e .[dev]
 ```
 
-Enter your API key, verify the settings, and click "Send".
+### 2. Copy and edit config
 
-### 3. Run the Python Demo
+Use the example files in [`config/`](./config):
+
+- [`config/accounts.example.yaml`](./config/accounts.example.yaml)
+- [`config/proxies.example.yaml`](./config/proxies.example.yaml)
+- [`config/routing.example.yaml`](./config/routing.example.yaml)
+
+### 3. Run the proxy
 
 ```bash
-cd python
-pip install -r requirements.txt
-python demo.py
+python -m uvicorn main:app --reload
 ```
 
-### 4. Run the Node.js Demo
+### Docker quickstart
 
 ```bash
-cd node
-npm install
-node demo.js
+docker compose -f docker-compose.example.yml up --build
 ```
 
-## Configuration
+### 4. Send an OpenAI-compatible request
 
-### Environment Variables
+```python
+from openai import OpenAI
 
-Copy `.env.example` to `.env` and set your values:
+client = OpenAI(
+    api_key="anything",
+    base_url="http://127.0.0.1:8000/v1",
+)
 
-```bash
-API_KEY=your_api_key_here
-BASE_URL=https://www.tken.shop/v1
-MODEL=gpt-4o-mini
+response = client.chat.completions.create(
+    model="kimi",
+    messages=[{"role": "user", "content": "Say hello from the proxy manager."}],
+)
+
+print(response)
 ```
 
-### Settings
+## Suggested TKEN Example
 
-| Variable | Default | Description |
-|----------|---------|-------------|
-| `API_KEY` | (required) | Your API key |
-| `BASE_URL` | `https://www.tken.shop/v1` | API endpoint |
-| `MODEL` | `gpt-4o-mini` | Model identifier |
+You can point one or more accounts in `accounts.example.yaml` at:
 
-## Web Demo Usage
-
-1. Open `web/index.html` in your browser
-2. Enter your API key in the "API Key" field
-3. Verify Base URL and Model are correct
-4. Click "Save Settings"
-5. Enter a prompt in the text area
-6. Click "Send"
-
-The web demo saves your settings and chat history to your browser's localStorage.
-
-## Python Demo Usage
-
-```bash
-cd python
-pip install -r requirements.txt
-python demo.py
+```yaml
+accounts:
+  - name: tken-kimi-free
+    api_key: replace-with-your-tken-key
+    base_url: https://www.tken.shop/v1
+    models:
+      - kimi
 ```
 
-The Python demo uses environment variables. Set them in `.env` or export directly:
+That gives new users a very fast way to validate the whole stack:
 
-```bash
-export API_KEY=your_api_key
-export BASE_URL=https://www.tken.shop/v1
-export MODEL=gpt-4o-mini
-python demo.py
+1. register on `TKEN`
+2. get an API key
+3. call free `kimi` or `minimax`
+4. route requests through this proxy manager
+
+## Project Structure
+
+```text
+.
+├── core/
+├── modules/
+│   ├── account_manager/
+│   ├── rate_limit_handler/
+│   ├── proxy_manager/
+│   └── api_router/
+├── web-ui/
+├── config/
+├── docker-compose.example.yml
+├── docs/
+├── Dockerfile
+├── tests/
+├── README.md
+└── pyproject.toml
 ```
 
-## Node.js Demo Usage
+## SEO Keywords
 
-```bash
-cd node
-npm install
-node demo.js
-```
+This repository intentionally targets developer search terms such as:
 
-Same environment variable setup as Python.
+- openai compatible
+- multi account proxy
+- api manager
+- rate limit retry
+- proxy rotation
+- openai api gateway
+- kimi api
+- minimax api
 
-## OpenAI-Compatible Format
+## Upstream Credit
 
-This project uses the standard OpenAI API format:
+This repository is an enhanced independent project inspired by:
 
-**Request:**
-```json
-POST {BASE_URL}/chat/completions
-{
-  "model": "gpt-4o-mini",
-  "messages": [
-    {"role": "user", "content": "Hello!"}
-  ]
-}
-```
+- [`QuantumNous/new-api`](https://github.com/QuantumNous/new-api)
 
-**Response:**
-```json
-{
-  "id": "chatcmpl-xxx",
-  "choices": [{
-    "message": {
-      "role": "assistant",
-      "content": "Hello! How can I help?"
-    }
-  }]
-}
-```
+Please review the upstream project if you need the broader management platform it provides.
 
-This format works with any compatible provider.
+## Star This Repo
 
-## Get API Access
-
-This project works with OpenAI-compatible APIs.
-
-If you need a simple place to get started, you can get API access from:
-
-**https://www.tken.shop**
-
-- OpenAI-compatible format
-- Daily free access available
-- No credit card required
-
-## Troubleshooting
-
-### "API_KEY is not set"
-- Create a `.env` file based on `.env.example`
-- Or export: `export API_KEY=your_key`
-
-### "Invalid API key"
-- Verify your API key is correct
-- Check for extra spaces
-
-### "404 Not Found"
-- Verify BASE_URL ends with `/v1`
-- Example: `https://www.tken.shop/v1`
-
-### "Model not found"
-- Verify the model name is correct
-- Check available models from your provider
-
-### Web demo not working
-- Some providers block browser requests (CORS)
-- Try Python or Node.js demo instead
-
-For more help, see `docs/faq.md`.
-
-## FAQ
-
-**Q: Can I use another provider?**
-A: Yes, any OpenAI-compatible provider works. Just change BASE_URL.
-
-**Q: Is this free?**
-A: It depends on your API provider. Some offer free tiers.
-
-**Q: Is this production-ready?**
-A: This is a starter/demo. For production, add proper error handling and security.
-
-## License
-
-MIT License - see [LICENSE](LICENSE)
+If this project saves you from manual API key switching, unstable proxy setups, or repeated `429` firefighting, please star it so more developers can find it.

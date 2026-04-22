@@ -1,0 +1,15 @@
+accounts:
+  - name: tken-kimi-free
+    api_key: replace-with-your-tken-key
+    base_url: https://www.tken.shop/v1
+    models:
+      - kimi
+  - name: tken-minimax-free
+    api_key: replace-with-your-tken-key
+    base_url: https://www.tken.shop/v1
+    models:
+      - minimax
+  - name: openai-fallback
+    api_key: replace-with-provider-key
+    base_url: https://api.openai.com/v1
+

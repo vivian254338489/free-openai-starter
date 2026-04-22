@@ -27,6 +27,19 @@ Expected response:
 {"status":"ok"}
 ```
 
+## Detailed Status
+
+```bash
+curl http://127.0.0.1:8000/healthz/details
+```
+
+This endpoint returns:
+
+- configured accounts
+- configured proxies
+- cooldown state
+- retry policy snapshot
+
 ## Production Notes
 
 - replace example keys in `config/accounts.example.yaml`

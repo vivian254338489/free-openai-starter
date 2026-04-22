@@ -134,6 +134,7 @@ Ready-to-run examples live in [`examples/`](./examples):
 
 - [Python example](./examples/python/openai_client.py)
 - [Node.js example](./examples/node/openai_client.mjs)
+- [Go example](./examples/go/main.go)
 - [curl example](./examples/curl/chat_completion.sh)
 
 ## Related Projects

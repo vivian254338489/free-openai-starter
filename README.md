@@ -1,5 +1,8 @@
 # OpenAI Unlimited Multi-Account Proxy API Manager
 
+[![CI](https://github.com/vivian254338489/free-openai-starter/actions/workflows/ci.yml/badge.svg)](https://github.com/vivian254338489/free-openai-starter/actions/workflows/ci.yml)
+[![GitHub stars](https://img.shields.io/github/stars/vivian254338489/free-openai-starter?style=social)](https://github.com/vivian254338489/free-openai-starter)
+
 Tired of `429` errors, API key bans, unstable upstreams, and juggling too many OpenAI-compatible endpoints?
 
 This project is a developer-first enhanced gateway inspired by [`QuantumNous/new-api`](https://github.com/QuantumNous/new-api). It focuses on the part many indie builders actually need first:
@@ -28,6 +31,27 @@ This project narrows the problem down to one job:
 - Model-aware API routing
 - OpenAI-compatible `/v1/...` forwarding
 - FastAPI-based self-hosted runtime
+
+## Good Fit For
+
+- indie hackers calling multiple OpenAI-compatible endpoints
+- student projects that need a cheaper shared gateway
+- AI tool builders who want one stable `/v1` base URL
+- teams testing free `kimi` / `minimax` access before scaling up
+
+## Architecture Snapshot
+
+```mermaid
+flowchart LR
+    A["App / OpenAI SDK"] --> B["Proxy Manager /v1"]
+    B --> C["API Router"]
+    C --> D["Account Manager"]
+    C --> E["Proxy Manager"]
+    D --> F["TKEN / OpenAI-compatible upstream"]
+    E --> F
+    F --> G["Response or 429"]
+    G --> B
+```
 
 ## Compared With The Original Project
 
@@ -102,6 +126,14 @@ response = client.chat.completions.create(
 print(response)
 ```
 
+## Examples
+
+Ready-to-run examples live in [`examples/`](./examples):
+
+- [Python example](./examples/python/openai_client.py)
+- [Node.js example](./examples/node/openai_client.mjs)
+- [curl example](./examples/curl/chat_completion.sh)
+
 ## Suggested TKEN Example
 
 You can point one or more accounts in `accounts.example.yaml` at:
@@ -137,6 +169,7 @@ That gives new users a very fast way to validate the whole stack:
 ├── docker-compose.example.yml
 ├── docs/
 ├── Dockerfile
+├── examples/
 ├── tests/
 ├── README.md
 └── pyproject.toml
@@ -162,6 +195,10 @@ This repository is an enhanced independent project inspired by:
 - [`QuantumNous/new-api`](https://github.com/QuantumNous/new-api)
 
 Please review the upstream project if you need the broader management platform it provides.
+
+## FAQ
+
+See [docs/faq.md](./docs/faq.md).
 
 ## Star This Repo
 

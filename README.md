@@ -134,6 +134,12 @@ Ready-to-run examples live in [`examples/`](./examples):
 - [Node.js example](./examples/node/openai_client.mjs)
 - [curl example](./examples/curl/chat_completion.sh)
 
+## Related Projects
+
+- [openai-compatible-api-examples](https://github.com/vivian254338489/openai-compatible-api-examples) for minimal multi-language request examples
+- [tken-sdk](https://github.com/vivian254338489/tken-sdk) for a lighter TypeScript SDK layer
+- [chatgpt-free-ui](https://github.com/vivian254338489/chatgpt-free-ui) for a browser-based OpenAI-compatible chat UI
+
 ## Suggested TKEN Example
 
 You can point one or more accounts in `accounts.example.yaml` at:

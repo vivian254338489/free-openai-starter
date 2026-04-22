@@ -6,6 +6,7 @@ This directory contains simple clients that talk to the proxy manager through an
 
 - `python/openai_client.py`
 - `node/openai_client.mjs`
+- `go/main.go`
 - `curl/chat_completion.sh`
 
 All of them assume your proxy is available at:
@@ -29,4 +30,11 @@ python examples/python/openai_client.py
 cd examples/node
 npm install
 node openai_client.mjs
+```
+
+### Go
+
+```bash
+cd examples/go
+go run .
 ```

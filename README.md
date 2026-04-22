@@ -31,6 +31,7 @@ This project narrows the problem down to one job:
 - Model-aware API routing
 - OpenAI-compatible `/v1/...` forwarding
 - FastAPI-based self-hosted runtime
+- Read-only `/healthz/details` status endpoint
 
 ## Good Fit For
 
@@ -108,6 +109,12 @@ python -m uvicorn main:app --reload
 
 ```bash
 docker compose -f docker-compose.example.yml up --build
+```
+
+### 3.5 Inspect runtime status
+
+```bash
+curl http://127.0.0.1:8000/healthz/details
 ```
 
 ### 4. Send an OpenAI-compatible request
